@@ -5,6 +5,8 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
@@ -24,8 +26,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService{
     public void onMessageReceived(RemoteMessage remoteMessage) {
         // super.onMessageReceived(remoteMessage);
 
-
-        if (remoteMessage.getData().size() > 0) {
+   /*     if (remoteMessage.getData().size() > 0) {
             Bundle data = new Bundle();
             for (Map.Entry<String, String> entry : remoteMessage.getData().entrySet()) {
                 data.putString(entry.getKey(), entry.getValue());
@@ -54,5 +55,29 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService{
                         mNotificationManager.notify(123, mBuilder.build());
                     }
                 }
-    }
+*/    }
+
+   /*
+   @Override
+    public void zzm(Intent intent) {
+        Intent launchIntent = new Intent(this.getApplicationContext(), LauncherActivity.class);
+        launchIntent.setAction(Intent.ACTION_MAIN);
+        launchIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 *//* R    equest code *//*, launchIntent,
+                PendingIntent.FLAG_ONE_SHOT);
+        Bitmap rawBitmap = BitmapFactory.decodeResource(getResources(),
+                R.mipmap.ic_launcher);
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
+                .setSmallIcon(R.drawable.icon)
+                .setLargeIcon(rawBitmap)
+                .setContentTitle(intent.getStringExtra("gcm.notification.title"))
+                .setContentText(intent.getStringExtra("gcm.notification.body"))
+                .setAutoCancel(true)
+                .setContentIntent(pendingIntent);
+
+        NotificationManager notificationManager =
+                (NotificationManager)     getSystemService(Context.NOTIFICATION_SERVICE);
+
+        notificationManager.notify(0 *//* ID of notification *//*, notificationBuilder.build());
+    }*/
 }
